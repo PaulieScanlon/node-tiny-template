@@ -4,9 +4,7 @@ const handlebars = require('handlebars');
 const changeCase = require('change-case');
 
 const renderFile = obj => {
-	const source = shell
-		.cat(path.resolve(__dirname, `${obj.template}.hbs`))
-		.toString();
+	const source = shell.cat(`${obj.template}.hbs`).toString();
 
 	const template = handlebars.compile(source);
 

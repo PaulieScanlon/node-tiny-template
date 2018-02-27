@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const path = require('path');
 const shell = require('shelljs');
 const program = require('commander');
@@ -29,7 +31,7 @@ program
 		shell.echo('');
 		shell.echo('    $ custom-help --help');
 		shell.echo('    $ custom-help -h');
-		shell.echo(`    $ npm start -- -e "components" -d "my-component"`);
+		shell.echo(`    $ tiny-template -e "components" -d "my-component"`);
 		shell.echo('');
 	})
 	.parse(process.argv);

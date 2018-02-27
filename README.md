@@ -10,7 +10,17 @@ Node command line tool for generating; templated js, css, and ... well, anything
 npm install node-tiny-template --save-dev
 ```
 
+### Help
+
+```sh
+tiny-template -h
+```
+
 ### Useage
+
+```sh
+tiny-template -e "components" -d "my-component"
+```
 
 ### License
 

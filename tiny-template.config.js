@@ -1,7 +1,8 @@
 const path = require('path');
 
 const paths = {
-	components: './examples/components'
+	components: './examples/components',
+	templates: './examples/templates'
 };
 
 const config = {
@@ -10,14 +11,14 @@ const config = {
 			output: paths.components,
 			extension: '.js',
 			format: 'pascalCase',
-			template: './templates/components-js'
+			template: `${paths.templates}/components-js`
 		},
 		{
 			output: paths.components,
 			name: 'styles',
 			extension: '.css',
 			format: 'paramCase',
-			template: './templates/components-css'
+			template: `${paths.templates}/components-css`
 		}
 	]
 };

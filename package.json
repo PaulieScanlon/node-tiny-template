@@ -5,8 +5,10 @@
 		"Node command line tool for generating; templated js, css, and ... well, anything really.",
 	"main": "src/index.js",
 	"scripts": {
-		"start": "node ./src",
 		"test": "test"
+	},
+	"bin": {
+		"tiny-template": "./src/index.js"
 	},
 	"repository": {
 		"type": "git",
