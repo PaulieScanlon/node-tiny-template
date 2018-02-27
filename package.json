@@ -1,0 +1,42 @@
+{
+	"name": "node-tiny-template",
+	"version": "1.0.0",
+	"description":
+		"Node command line tool for generating; templated js, css, and ... well, anything really.",
+	"main": "src/index.js",
+	"scripts": {
+		"start": "node ./src",
+		"test": "test"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/PaulieScanlon/node-tiny-template.git"
+	},
+	"keywords": [
+		"app",
+		"boilerplate",
+		"build",
+		"cli",
+		"cli-app",
+		"dev",
+		"template",
+		"templates",
+		"scaffolding",
+		"tool",
+		"web",
+		"node",
+		"generator",
+		"npm"
+	],
+	"author": "Paulie Scanlon",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/PaulieScanlon/node-tiny-template/issues"
+	},
+	"homepage": "https://github.com/PaulieScanlon/node-tiny-template#readme",
+	"dependencies": {
+		"change-case": "^3.0.2",
+		"commander": "^2.14.1",
+		"shelljs": "^0.8.1"
+	}
+}
