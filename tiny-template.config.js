@@ -9,6 +9,7 @@ const config = {
 	components: [
 		{
 			output: paths.components,
+			name: 'my-component',
 			extension: '.js',
 			format: 'pascalCase',
 			template: `${paths.templates}/components-js`
