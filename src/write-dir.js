@@ -1,30 +1,29 @@
 const path = require('path');
 const shell = require('shelljs');
 
-const renderFile = require('./render-file');
+const writeDir = options => {
+	const writeLocation = path.join(
+		process.cwd(),
+		`${options.config[options.entry][0].output}/${options.directory}`
+	);
 
-const writeDir = obj => {
-	const renderReturn = renderFile(obj);
-	const writeLocation = path.join(`${obj.output}/${obj.directory}`);
+	let result = {
+		status: false,
+		message: `Error: "${options.directory}" directory already exists!`
+	};
 
-	shell.mkdir('-p', writeLocation);
-	//special case for json with the quote marks for echo -- TODO needs investigation
-	if (obj.extension === '.json') {
-		shell.exec(
-			`echo '${renderReturn}' > ${writeLocation}/${obj.name}${obj.extension}`
-		);
-	} else {
-		shell.exec(
-			`echo "${renderReturn}" > ${writeLocation}/${obj.name}${obj.extension}`
-		);
+	//Dev only
+	// shell.mkdir('-p', writeLocation);
+	// result.status = true;
+	// result.message = `Hooray: "${options.directory}" directory created ok!`;
+
+	if (!shell.test('-e', writeLocation)) {
+		shell.mkdir('-p', writeLocation);
+		result.status = true;
+		result.message = `Hooray: "${options.directory}" directory created ok!`;
 	}
 
-	//TODO check if dir and files already exist
-	// if (!shell.test('-e', writeLocation)) {
-	// 	shell.echo(`> ${obj.name}${obj.extension} created ok!`);
-	// } else {
-	// 	shell.echo(`> ${obj.name}${obj.extension} already exists!`);
-	// }
+	return result;
 };
 
 module.exports = writeDir;

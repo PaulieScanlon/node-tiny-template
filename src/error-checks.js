@@ -1,49 +1,92 @@
+const path = require('path');
 const shell = require('shelljs');
-
-let constants = require('./constants');
-
-const configErrors = {
-	programConfig: 'Error: custom config file/path not found',
-	defaultConfig: `Error: default config file ${constants.defaultName} not found`
-};
 
 const checkConfig = (config, type) => {
 	if (!shell.test('-e', config)) {
-		shell.echo(configErrors[type]);
+		shell.echo(`Error: "${config}" not found`);
 		process.exit();
 	}
-
-	return shell.test('-e', config);
+	return require(path.resolve(process.cwd(), `${config}`));
 };
 
-const checkEntry = entry => {
-	if (entry === undefined) {
-		shell.echo(`Error: entry '-e' is required`);
-		return false;
+const checkRequiredFlags = program => {
+	let requiredFlags = [];
+
+	let result = {
+		status: false,
+		message: 'Error: Missing one or more <required> flags!'
+	};
+
+	program.options.map((opts, i) => {
+		if (opts.flags.includes('<required>')) {
+			requiredFlags.push(program[opts.long.replace('--', '')]);
+		}
+	});
+
+	if (!requiredFlags.includes(undefined)) {
+		result.status = true;
+		result.message = 'Hooray: looks like we have all <required> flags!';
 	}
-	return true;
+
+	return result;
 };
 
-const checkArray = (configFile, entry) => {
-	if (!configFile.hasOwnProperty(`${entry}`)) {
-		shell.echo(`${entry} array not found in config file!`);
-		return false;
+const checkEntry = (configObject, entry) => {
+	let result = {
+		status: false,
+		message: `Error: "${entry}" array not found in config file!`
+	};
+
+	if (configObject.hasOwnProperty(`${entry}`)) {
+		// TODO and check the entry array has at least 1 object in it
+		result.status = true;
+		result.message = `Hooray: "${entry}" array found in config file!`;
 	}
-	return true;
+
+	return result;
 };
 
-const checkDirectory = directory => {
-	console.log('checkDirectory: ', directory);
-	if (directory === undefined) {
-		shell.echo(`Error: directory '-d' is required`);
-		return false;
+const checkKeys = options => {
+	const requiredKeys = new Set([
+		'output',
+		'extension',
+		'format',
+		'template',
+		'directory',
+		'name'
+	]);
+
+	let results = [];
+
+	let result = {
+		status: false,
+		message: 'Error: Missing one or more required object keys!'
+	};
+
+	// This is gross!
+	// need to find a nicer way to compare keys in config to keys in above requiredKeys array
+	options.config[options.entry].map((obj, i) => {
+		const configKeys = new Set(Object.getOwnPropertyNames(obj));
+
+		const areSetsEqual = (requiredKeys, configKeys) =>
+			requiredKeys.size === configKeys.size &&
+			[...requiredKeys].every(value => configKeys.has(value));
+
+		results.push(areSetsEqual(requiredKeys, configKeys));
+	});
+
+	if (!results.includes(false)) {
+		//nothing is missing return true
+		result.status = true;
+		result.message = 'Hooray: all object keys are ok!';
 	}
-	return true;
+
+	return result;
 };
 
 module.exports = {
 	checkConfig,
+	checkRequiredFlags,
 	checkEntry,
-	checkArray,
-	checkDirectory
+	checkKeys
 };
