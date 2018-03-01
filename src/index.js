@@ -13,6 +13,8 @@ const {
 	checkEntry
 } = require('./error-checks');
 
+const { errors, success, tiny } = require('./error-styles');
+
 let options = {
 	config: null,
 	entry: null,
@@ -41,6 +43,9 @@ program
 	})
 	.parse(process.argv);
 
+shell.echo('');
+shell.echo(`${tiny.starting(' STARTING ')} Tiny Template starting up!`);
+shell.echo('');
 // Check if cli -c flag has been passed in and use that file instead of default
 if (program.config) {
 	configObject = checkConfig(program.config, 'programConfig');

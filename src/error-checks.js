@@ -1,9 +1,15 @@
 const path = require('path');
 const shell = require('shelljs');
 
+const { errors, success } = require('./error-styles');
+
 const checkConfig = (config, type) => {
 	if (!shell.test('-e', config)) {
-		shell.echo(`Error: "${config}" not found`);
+		shell.echo(
+			`${errors.bold('Error:')} config ${errors.highlight(
+				`"${config}"`
+			)} not found`
+		);
 		process.exit();
 	}
 	return require(path.resolve(process.cwd(), `${config}`));
@@ -14,7 +20,9 @@ const checkRequiredFlags = program => {
 
 	let result = {
 		status: false,
-		message: 'Error: Missing one or more <required> flags!'
+		message: `${errors.bold('Error:')} Missing one or more ${errors.highlight(
+			'<required>'
+		)} flags`
 	};
 
 	program.options.map((opts, i) => {
@@ -25,7 +33,9 @@ const checkRequiredFlags = program => {
 
 	if (!requiredFlags.includes(undefined)) {
 		result.status = true;
-		result.message = 'Hooray: looks like we have all <required> flags!';
+		result.message = `${success.bold('Success:')} all ${success.highlight(
+			'<required>'
+		)} flags found`;
 	}
 
 	return result;
@@ -34,13 +44,17 @@ const checkRequiredFlags = program => {
 const checkEntry = (configObject, entry) => {
 	let result = {
 		status: false,
-		message: `Error: "${entry}" array not found in config file!`
+		message: `${errors.bold('Error:')} array ${errors.highlight(
+			`"${entry}"`
+		)} not found in config file`
 	};
 
 	if (configObject.hasOwnProperty(`${entry}`)) {
 		// TODO and check the entry array has at least 1 object in it
 		result.status = true;
-		result.message = `Hooray: "${entry}" array found in config file!`;
+		result.message = `${success.bold('Success:')} array ${success.highlight(
+			`"${entry}"`
+		)} found in config file`;
 	}
 
 	return result;
@@ -58,7 +72,7 @@ const checkKeys = options => {
 
 	let result = {
 		status: true,
-		message: 'Hooray: all object keys are ok!'
+		message: `${success.bold('Success:')} all object keys found`
 	};
 
 	options.config[options.entry].map((object, i) => {
@@ -67,9 +81,13 @@ const checkKeys = options => {
 		requiredKeys.every(item => {
 			if (!object.hasOwnProperty(item)) {
 				result.status = false;
-				result.message = `Error: "${item}" is ${
-					keys[item]
-				}! The Problem occoured in "${options.entry}" array at index ${index}!`;
+				result.message = `${errors.bold('Error:')} ${errors.highlight(
+					`"${item}"`
+				)} is ${errors.underline(
+					`${keys[item]}`
+				)} The Problem occoured in the ${errors.highlight(
+					`"${options.entry}"`
+				)} array at index ${errors.highlight(`${index}`)}`;
 			}
 			return object.hasOwnProperty(item);
 		});

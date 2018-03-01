@@ -1,9 +1,10 @@
 const shell = require('shelljs');
 
-const { checkKeys } = require('./error-checks');
-
 const writeDir = require('./write-dir');
 const writeFile = require('./write-file');
+
+const { checkKeys } = require('./error-checks');
+const { errors, success, tiny } = require('./error-styles');
 
 const templateGenerator = options => {
 	// Check if all keys are present in config
@@ -26,6 +27,10 @@ const templateGenerator = options => {
 	if (!file.status) {
 		process.exit();
 	}
+
+	shell.echo('');
+	shell.echo(`${tiny.finished(' FINISHED ')} Tiny Template finished!`);
+	shell.echo('');
 };
 
 module.exports = templateGenerator;
