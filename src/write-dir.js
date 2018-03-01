@@ -1,6 +1,8 @@
 const path = require('path');
 const shell = require('shelljs');
 
+const { errors, success } = require('./error-styles');
+
 const writeDir = options => {
 	const writeLocation = path.join(
 		process.cwd(),
@@ -9,18 +11,24 @@ const writeDir = options => {
 
 	let result = {
 		status: false,
-		message: `Error: "${options.directory}" directory already exists!`
+		message: `${errors.bold('Error:')} ${errors.highlight(
+			`"${options.directory}"`
+		)} directory already exists`
 	};
 
 	//Dev only
 	// shell.mkdir('-p', writeLocation);
 	// result.status = true;
-	// result.message = `Hooray: "${options.directory}" directory created ok!`;
+	// result.message = `${success.bold('Hooray:')} ${success.highlight(
+	// 	`"${options.directory}"`
+	// )} directory created ok`;
 
 	if (!shell.test('-e', writeLocation)) {
 		shell.mkdir('-p', writeLocation);
 		result.status = true;
-		result.message = `Hooray: "${options.directory}" directory created ok!`;
+		result.message = `${success.bold('Hooray:')} ${success.highlight(
+			`"${options.directory}"`
+		)} directory created ok`;
 	}
 
 	return result;

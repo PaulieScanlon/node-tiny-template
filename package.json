@@ -1,8 +1,7 @@
 {
 	"name": "node-tiny-template",
 	"version": "1.0.0",
-	"description":
-		"Node command line tool for generating; templated js, css, and ... well, anything really.",
+	"description": "Node command line tool for generating; templated js, css, and ... well, anything really.",
 	"main": "src/index.js",
 	"scripts": {
 		"test": "test"
@@ -37,6 +36,7 @@
 	},
 	"homepage": "https://github.com/PaulieScanlon/node-tiny-template#readme",
 	"dependencies": {
+		"chalk": "^2.3.1",
 		"change-case": "^3.0.2",
 		"commander": "^2.14.1",
 		"shelljs": "^0.8.1"

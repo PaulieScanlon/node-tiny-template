@@ -3,12 +3,14 @@ const shell = require('shelljs');
 const handlebars = require('handlebars');
 const changeCase = require('change-case');
 
+const { errors, success } = require('./error-styles');
+
 const writeFile = options => {
 	let results = [];
 
 	let result = {
 		status: false,
-		message: 'Error: something went wrong ¯_(ツ)_/¯'
+		message: `${errors.bold('Error:')} something went wrong ¯_(ツ)_/¯`
 	};
 
 	options.config[options.entry].map((obj, i) => {
@@ -23,11 +25,13 @@ const writeFile = options => {
 			writeTemplate,
 			template({ name: `${changeCase[obj.format](obj.directory)}` })
 		);
-		results.push(`"${obj.name}${obj.extension}" `);
+		results.push(`"${obj.name}${obj.extension}"`);
 	});
 
 	result.status = true;
-	result.message = `Hooray: ${results} created ok!`;
+	result.message = `${success.bold('Hooray:')} ${success.highlight(
+		`${results}`
+	)} created ok`;
 
 	return result;
 };
