@@ -1,7 +1,7 @@
 {
 	"name": "node-tiny-template",
 	"version": "1.0.0",
-	"description": "Node command line tool for generating; templated js, css, and ... well, anything really.",
+	"description": "A Node CLI for creating templates.",
 	"main": "src/index.js",
 	"scripts": {
 		"test": "test"
@@ -27,9 +27,16 @@
 		"web",
 		"node",
 		"generator",
-		"npm"
+		"npm",
+		"node",
+		"automation"
 	],
-	"author": "Paulie Scanlon",
+	"author": "Paul Scanlon",
+	"contributors": [
+		{
+			"name": "Benjamin Nwaneampeh"
+		}
+	],
 	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/PaulieScanlon/node-tiny-template/issues"

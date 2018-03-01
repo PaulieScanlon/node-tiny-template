@@ -24,7 +24,7 @@ let options = {
 let configObject = null;
 
 program
-	.version('0.0.1', '-v, --version')
+	.version('1.0.0', '-v, --version')
 	.description('Tiny Template')
 	.option('-c, --config [optional]', 'optional path to config file')
 	.option('-e, --entry <required>', 'required array from config object')
