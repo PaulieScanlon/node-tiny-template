@@ -19,14 +19,14 @@ const writeDir = options => {
 	//Dev only
 	// shell.mkdir('-p', writeLocation);
 	// result.status = true;
-	// result.message = `${success.bold('Hooray:')} ${success.highlight(
+	// result.message = `${success.bold('Success:')} ${success.highlight(
 	// 	`"${options.directory}"`
 	// )} directory created ok`;
 
 	if (!shell.test('-e', writeLocation)) {
 		shell.mkdir('-p', writeLocation);
 		result.status = true;
-		result.message = `${success.bold('Hooray:')} ${success.highlight(
+		result.message = `${success.bold('Success:')} ${success.highlight(
 			`"${options.directory}"`
 		)} directory created ok`;
 	}

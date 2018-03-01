@@ -29,7 +29,7 @@ const writeFile = options => {
 	});
 
 	result.status = true;
-	result.message = `${success.bold('Hooray:')} ${success.highlight(
+	result.message = `${success.bold('Success:')} ${success.highlight(
 		`${results}`
 	)} created ok`;
 
