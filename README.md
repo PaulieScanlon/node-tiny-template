@@ -82,7 +82,7 @@ The resulting .js file is compiled by using the template `'components-js.hbs'`
 ```sh
 import * as React from 'react';
 
-const {{{name}}}: React.SFC = () => {
+const {{{name}}} = () => {
 
   return (
     <div>
@@ -101,7 +101,7 @@ export default {{{name}}};
 ```sh
 import * as React from 'react';
 
-const MyComponent: React.SFC = () => {
+const MyComponent = () => {
 
   return (
     <div>
