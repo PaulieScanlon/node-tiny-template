@@ -44,7 +44,6 @@ tiny-template -e "components" -d "app-component"
 
 `-e` Entry: This is an array within a config object in the config file.
 
-<<<<<<< HEAD
 `-d` Directory: This is the name of the directory to make. If no `'name'` key is defined in the config object Tiny Template will name your file using name passed in on the `'-d'` flag.
 
 The above example will create a directory called `'app-component'` in a directory called `'app-component'`
@@ -52,11 +51,6 @@ The above example will create a directory called `'app-component'` in a director
 The location of this directory is defined by the `'output'` key in the config object. In this demo the output path is `'examples/components/'`
 
 Tiny Templates runs from `'process.cwd()'` so all paths will be relative to the root of your project.
-=======
-`-d` Directory: This is the name of the directory to make. If no `'name'` key is defined in the config Tiny Template will name your file using name passed in on the `'-d'` flag.
-
-The above example will create a direcory called `'app-component'` in a directory called `'components'`
->>>>>>> cca8605ac770a64f0edb48953a96f143b8fc6d7e
 
 ### Config continued...
 
