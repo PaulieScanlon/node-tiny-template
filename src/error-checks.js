@@ -47,39 +47,33 @@ const checkEntry = (configObject, entry) => {
 };
 
 const checkKeys = options => {
-	const requiredKeys = new Set([
+	const requiredKeys = [
 		'output',
 		'extension',
 		'format',
 		'template',
 		'directory',
 		'name'
-	]);
-
-	let results = [];
+	];
 
 	let result = {
-		status: false,
-		message: 'Error: Missing one or more required object keys!'
+		status: true,
+		message: 'Hooray: all object keys are ok!'
 	};
 
-	// This is gross!
-	// need to find a nicer way to compare keys in config to keys in above requiredKeys array
-	options.config[options.entry].map((obj, i) => {
-		const configKeys = new Set(Object.getOwnPropertyNames(obj));
-
-		const areSetsEqual = (requiredKeys, configKeys) =>
-			requiredKeys.size === configKeys.size &&
-			[...requiredKeys].every(value => configKeys.has(value));
-
-		results.push(areSetsEqual(requiredKeys, configKeys));
+	options.config[options.entry].map((object, i) => {
+		let keys = Object.keys(object);
+		let index = i;
+		requiredKeys.every(item => {
+			if (!object.hasOwnProperty(item)) {
+				result.status = false;
+				result.message = `Error: "${item}" is ${
+					keys[item]
+				}! The Problem occoured in "${options.entry}" array at index ${index}!`;
+			}
+			return object.hasOwnProperty(item);
+		});
 	});
-
-	if (!results.includes(false)) {
-		//nothing is missing return true
-		result.status = true;
-		result.message = 'Hooray: all object keys are ok!';
-	}
 
 	return result;
 };
