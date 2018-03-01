@@ -3,11 +3,11 @@ const shell = require('shelljs');
 const writeDir = require('./write-dir');
 const writeFile = require('./write-file');
 
-const { checkKeys } = require('./error-checks');
+const { checkKeys, checkTemplates } = require('./error-checks');
 const { errors, success, tiny } = require('./error-styles');
 
 const templateGenerator = options => {
-	// Check if all keys are present in config
+	// check if all keys are present in config
 	let keys = checkKeys(options);
 	shell.echo(keys.message);
 	if (!keys.status) {
@@ -21,7 +21,14 @@ const templateGenerator = options => {
 		process.exit();
 	}
 
-	// 3. compile and write the files using the templates
+	// 3. check if the template files are there before attempting to write them
+	let templates = checkTemplates(options);
+	shell.echo(templates.message);
+	if (!templates.status) {
+		process.exit();
+	}
+
+	// 4. compile and write the files using the templates
 	let file = writeFile(options);
 	shell.echo(file.message);
 	if (!file.status) {

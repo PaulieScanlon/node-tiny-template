@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-const AppComponent: React.SFC = () => {
+const AppComponent = () => {
 
 	return (
 		<div>

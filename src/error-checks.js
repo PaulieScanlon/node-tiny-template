@@ -96,9 +96,28 @@ const checkKeys = options => {
 	return result;
 };
 
+const checkTemplates = options => {
+	let result = {
+		status: true,
+		message: `${success.bold('Success:')} all templates found`
+	};
+
+	options.config[options.entry].map((obj, i) => {
+		if (!shell.test('-e', `${obj.template}.hbs`)) {
+			result.status = false;
+			result.message = `${errors.bold('Error:')} ${errors.highlight(
+				`"${obj.template}.hbs"`
+			)} not found`;
+		}
+	});
+
+	return result;
+};
+
 module.exports = {
 	checkConfig,
 	checkRequiredFlags,
 	checkEntry,
-	checkKeys
+	checkKeys,
+	checkTemplates
 };
