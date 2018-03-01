@@ -34,7 +34,7 @@ You can create as many config files as you like and store them wherever you want
 tiny-template -c "custom-config.js"
 ```
 
-## Flags
+### Flags
 
 A simple useage example looks like this;
 
@@ -48,7 +48,7 @@ tiny-template -e "components" -d "my-component"
 
 The above example will create a direcory called `'my-component'` in a directory called `'components'`
 
-## Config continued...
+### Config continued...
 
 In order for the above to work Tiny Template needs the entry to be present in the config file.
 
