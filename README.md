@@ -31,22 +31,26 @@ tiny-template.config.js
 You can create as many config files as you like and store them wherever you want but you'll need to tell Tiny Template about them using the `-c` flag
 
 ```sh
-tiny-template -c "custom-config.js"
+tiny-template -c "path/to/custom-config.js"
 ```
 
 ### Flags
 
-A simple useage example looks like this;
+A simple useage example looks like this:
 
 ```sh
-tiny-template -e "components" -d "my-component"
+tiny-template -e "components" -d "app-component"
 ```
 
 `-e` Entry: This is an array within a config object in the config file.
 
-`-d` Directory: This is the name of the directory to make. If the name key in config is missing Tiny Template will name your file using the directory string.
+`-d` Directory: This is the name of the directory to make. If no `'name'` key is defined in the config object Tiny Template will name your file using name passed in on the `'-d'` flag.
 
-The above example will create a direcory called `'my-component'` in a directory called `'components'`
+The above example will create a directory called `'app-component'` in a directory called `'app-component'`
+
+The location of this directory is defined by the `'output'` key in the config object. In this demo the output path is `'examples/components/'`
+
+Tiny Templates runs from `'process.cwd()'` so all paths will be relative to the root of your project.
 
 ### Config continued...
 
@@ -65,7 +69,7 @@ const config = {
 };
 ```
 
-The result will be a .js file caled `'my-component'` (Because `'name'` is not defined Tiny Template will create a `'name'` key from the `-d` flag)
+The result will be a .js file caled `'app-component'` (Because `'name'` is not defined Tiny Template will create a `'name'` key from the `-d` flag)
 
 Adding a key called `'name'` overides this.
 
@@ -92,7 +96,7 @@ export default {{{name}}};
 
 ..and outputs like this:
 
-`examples/components/my-component/my-component.js`
+`examples/components/app-component/app-component.js`
 
 ```sh
 import * as React from 'react';
@@ -109,7 +113,7 @@ const MyComponent: React.SFC = () => {
 export default MyComponent;
 ```
 
-The format of `{{{name}}}` is determined by the `'format'` key in the config objet.
+The format of `{{{name}}}` is determined by the `'format'` key in the config object.
 
 ### Formats
 
