@@ -6,7 +6,7 @@ const program = require('commander');
 const templateGenerator = require('./scripts/template-gen');
 
 program
-	.version('1.0.0', '-v, --version')
+	.version('2.0.0', '-v, --version')
 	.description('Tiny Template')
 	.option('-c, --config [optional]', 'optional path to config file')
 	.option('-e, --entry <required>', 'required array from config object')
