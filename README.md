@@ -2,7 +2,7 @@
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
 
-**_Node Tiny Template_** is a command line tool interface for generating templated; .html, .js, .css, and ... well, any file types you like. Intially developed to aid in the creation of standardised React components and directories but can be useful in many other projects.
+**_Node Tiny Template_** is a command line interface for generating templated; .html, .js, .css, and ... well, any file types you like. Intially developed to aid in the creation of standardised React components and directories but can be useful in many other projects.
 
 Create your own templates so you and your development team always start off with the same base structure; component declaration, imports, exports etc.
 
