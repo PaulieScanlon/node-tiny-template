@@ -15,7 +15,7 @@ Install and save as development dependency.
 ### Install
 
 ```sh
-npm install node-tiny-template --save-dev
+npm i node-tiny-template --save-dev
 ```
 
 ### Config
@@ -34,19 +34,37 @@ You can create as many config files as you like and store them wherever you want
 tiny-template -c "path/to/custom-config.js"
 ```
 
-### Flags
+### "scripts"
 
-A simple useage example looks like this:
+To run template you'll probably need to add it to your `"scripts"` in `'package.json'`
 
 ```sh
-tiny-template -e "components" -d "app-component"
+"scripts": {
+  "tiny-template": "tiny-template"
+}
+```
+
+If you prefer you can alternatively install globally
+
+```sh
+npm i node-tiny-template -g
+```
+
+### Useage
+
+A simple useage example would then look like this:
+
+```sh
+npm run -- tiny-template -e "components" -d "app-component"
 ```
 
 `-e` Entry: This is an array within a config object in the config file.
 
 `-d` Directory: This is the name of the directory to make. If no `'name'` key is defined in the config object Tiny Template will name your file using name passed in on the `'-d'` flag.
 
-The above example will create a directory called `'app-component'` in a directory called `'app-component'`
+The above example will create a file called `'app-component'` in a directory called `'app-component'`
+
+The file extension is determined by the `'extension'` key from the config file.
 
 The location of this directory is defined by the `'output'` key in the config object. In this demo the output path is `'examples/components/'`
 

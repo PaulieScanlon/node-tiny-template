@@ -4,7 +4,7 @@
 	"description": "A Node CLI for creating templates.",
 	"main": "src/index.js",
 	"scripts": {
-		"test": "test"
+		"test": "jest --verbose --watch"
 	},
 	"bin": {
 		"tiny-template": "./src/index.js"
@@ -48,5 +48,8 @@
 		"commander": "^2.14.1",
 		"handlebars": "^4.0.11",
 		"shelljs": "^0.8.1"
+	},
+	"devDependencies": {
+		"jest": "^22.4.2"
 	}
 }
