@@ -3,9 +3,10 @@ const shell = require('shelljs');
 const handlebars = require('handlebars');
 const changeCase = require('change-case');
 
-const { errors, success } = require('./error-styles');
+const { errors, success } = require('../echo/echo-styles');
 
 const writeFile = options => {
+	// console.log(options);
 	let results = [];
 
 	let result = {

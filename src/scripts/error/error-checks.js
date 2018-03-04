@@ -1,22 +1,31 @@
 const path = require('path');
 const shell = require('shelljs');
 
-const { errors, success } = require('./error-styles');
+const { errors, success } = require('../echo/echo-styles');
 
-const checkConfig = (config, type) => {
-	if (!shell.test('-e', config)) {
-		shell.echo(
-			`${errors.bold('Error:')} config ${errors.highlight(
-				`"${config}"`
-			)} not found`
-		);
-		process.exit();
+const checkConfig = config => {
+	let result = {
+		status: false,
+		message: `${errors.bold('Error:')} config ${errors.highlight(
+			`"${config}"`
+		)} not found`,
+		object: null
+	};
+
+	if (shell.test('-e', config)) {
+		result.status = true;
+		result.message = `${success.bold('Success:')} ${success.highlight(
+			`${config}`
+		)} found`;
+		result.object = require(path.resolve(process.cwd(), `${config}`));
 	}
-	return require(path.resolve(process.cwd(), `${config}`));
+
+	return result;
 };
 
 const checkRequiredFlags = program => {
 	let requiredFlags = [];
+	let flatStatus = false;
 
 	let result = {
 		status: false,
@@ -27,11 +36,15 @@ const checkRequiredFlags = program => {
 
 	program.options.map((opts, i) => {
 		if (opts.flags.includes('<required>')) {
-			requiredFlags.push(program[opts.long.replace('--', '')]);
+			requiredFlags.push(opts.short);
 		}
 	});
 
-	if (!requiredFlags.includes(undefined)) {
+	requiredFlags.map((rf, i) => {
+		flatStatus = program.rawArgs.includes(rf);
+	});
+
+	if (flatStatus) {
 		result.status = true;
 		result.message = `${success.bold('Success:')} all ${success.highlight(
 			'<required>'
@@ -41,7 +54,7 @@ const checkRequiredFlags = program => {
 	return result;
 };
 
-const checkEntry = (configObject, entry) => {
+const checkEntry = (config, entry) => {
 	let result = {
 		status: false,
 		message: `${errors.bold('Error:')} array ${errors.highlight(
@@ -49,7 +62,7 @@ const checkEntry = (configObject, entry) => {
 		)} not found in config file`
 	};
 
-	if (configObject.hasOwnProperty(`${entry}`)) {
+	if (config.object.hasOwnProperty(`${entry}`)) {
 		// TODO and check the entry array has at least 1 object in it
 		result.status = true;
 		result.message = `${success.bold('Success:')} array ${success.highlight(
