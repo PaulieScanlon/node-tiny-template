@@ -1,7 +1,7 @@
 const path = require('path');
 const shell = require('shelljs');
 
-const { errors, success } = require('./error-styles');
+const { errors, success } = require('../echo/echo-styles');
 
 const writeDir = options => {
 	const writeLocation = path.join(
