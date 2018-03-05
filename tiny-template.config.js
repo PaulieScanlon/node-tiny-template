@@ -1,4 +1,5 @@
 const path = require('path');
+const { exec } = require('child_process');
 
 const paths = {
 	components: './examples/components',
@@ -21,7 +22,19 @@ const config = {
 			template: `${paths.templates}/components-css`
 		}
 	],
-	onComplete: 'npm run tiny-template-on-complete'
+	onComplete: options => {
+		exec(
+			'node ./tiny-template-on-complete.js',
+			{ env: options },
+			(err, stdout, stderr) => {
+				if (err) {
+					console.error(err);
+					return;
+				}
+				console.log(stdout);
+			}
+		);
+	}
 };
 
 module.exports = config;

@@ -4,8 +4,7 @@
 	"description": "A Node CLI for creating templates.",
 	"main": "src/index.js",
 	"scripts": {
-		"test": "jest --verbose",
-		"tiny-template-on-complete": "node ./tiny-template-on-complete.js"
+		"test": "jest --verbose"
 	},
 	"bin": {
 		"tiny-template": "./src/index.js"

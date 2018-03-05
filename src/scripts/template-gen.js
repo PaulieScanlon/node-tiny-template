@@ -95,12 +95,8 @@ const templateGenerator = (program, err) => {
 
 	// 5. If onComplete is defined, execute it!
 	if (options.config.onComplete) {
-		shell.echo(
-			`${onComplete.bold('OnComplete:')} ${onComplete.highlight(
-				`"${options.config.onComplete}"`
-			)}`
-		);
-		shell.exec(options.config.onComplete);
+		shell.echo(`${onComplete.bold('OnComplete:')}`);
+		options.config.onComplete(options);
 	}
 };
 
