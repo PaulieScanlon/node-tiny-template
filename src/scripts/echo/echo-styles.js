@@ -12,6 +12,12 @@ const success = {
 	underline: chalk.underline.green
 };
 
+const onComplete = {
+	bold: chalk.bold.magentaBright,
+	highlight: chalk.magentaBright,
+	underline: chalk.underline.magentaBright
+};
+
 const tiny = {
 	starting: chalk.bgCyanBright,
 	finished: chalk.bgCyanBright
@@ -20,5 +26,6 @@ const tiny = {
 module.exports = {
 	errors,
 	success,
-	tiny
+	tiny,
+	onComplete
 };

@@ -11,7 +11,7 @@ const {
 	checkTemplates
 } = require('./error/error-checks');
 
-const { errors, success, tiny } = require('./echo/echo-styles');
+const { errors, success, onComplete, tiny } = require('./echo/echo-styles');
 
 const defaultConfig = 'tiny-template.config.js';
 
@@ -51,6 +51,7 @@ const templateGenerator = (program, err) => {
 	options.config = config.object;
 	options.entry = program.entry;
 	options.directory = program.directory;
+	options.force = program.force ? program.force : false;
 
 	// If no name has been passed in from config file set it to the same as the -d directory
 	// and create a new options config objct
@@ -68,7 +69,7 @@ const templateGenerator = (program, err) => {
 		return err();
 	}
 
-	// 2. write the dir if it doesn't already exist
+	// 2. write the dir
 	let dir = writeDir(options);
 	shell.echo(dir.message);
 	if (!dir.status) {
@@ -92,6 +93,12 @@ const templateGenerator = (program, err) => {
 	shell.echo('');
 	shell.echo(`${tiny.finished(' FINISHED ')} Tiny Template finished!`);
 	shell.echo('');
+
+	// 5. If onComplete is defined, execute it!
+	if (options.config.onComplete) {
+		shell.echo(`${onComplete.bold('OnComplete:')}`);
+		options.config.onComplete(options);
+	}
 };
 
 module.exports = templateGenerator;

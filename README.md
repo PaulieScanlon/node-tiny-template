@@ -30,7 +30,7 @@ The _default_ config **_must_** be named:
 tiny-template.config.js
 ```
 
-You can create as many config files as you like and store them wherever you want but you'll need to tell Tiny Template about them using the `-c` flag
+You can create as many config files as you like and store them wherever you want but you'll need to tell Tiny Template about them using the `-c` arg
 
 ```sh
 tiny-template -c "path/to/custom-config.js"
@@ -38,18 +38,12 @@ tiny-template -c "path/to/custom-config.js"
 
 ### "scripts"
 
-To run template you'll probably need to add it to your `"scripts"` in `'package.json'`
+To run Tiny Template you'll probably need to add it to your `"scripts"` in `'package.json'`
 
 ```sh
 "scripts": {
   "tiny-template": "tiny-template"
 }
-```
-
-If you prefer you can alternatively install globally
-
-```sh
-npm i node-tiny-template -g
 ```
 
 ### Useage
@@ -62,7 +56,7 @@ npm run -- tiny-template -e "components" -d "app-component"
 
 `-e` Entry: This is an array within a config object in the config file.
 
-`-d` Directory: This is the name of the directory to make. If no `'name'` key is defined in the config object Tiny Template will name your file using name passed in on the `'-d'` flag.
+`-d` Directory: This is the name of the directory to make. If no `'name'` key is defined in the config object Tiny Template will name your file using whatever you passed in on the `'-d'` arg.
 
 The above example will create a file called `'app-component'` in a directory called `'app-component'`
 
@@ -74,7 +68,7 @@ Tiny Templates runs from `'process.cwd()'` so all paths will be relative to the 
 
 ### Config continued...
 
-In order for the above to work Tiny Template needs the entry to be present in the config file.
+In order for the above to work Tiny Template needs the `'entry'` to be present in the config file.
 
 ```sh
 const config = {
@@ -89,7 +83,7 @@ const config = {
 };
 ```
 
-The result will be a .js file caled `'app-component'` (Because `'name'` is not defined Tiny Template will create a `'name'` key from the `-d` flag)
+The result will be a .js file caled `'app-component'` (Because `'name'` is not defined Tiny Template will create a `'name'` key from the `-d` arg)
 
 Adding a key called `'name'` overides this.
 
@@ -162,7 +156,7 @@ _Available formats_:
 
 ### Help
 
-Familiarise yourself with the flags, some are optional, others are required.
+Familiarise yourself with the args, some are optional, others are required.
 
 ```sh
 tiny-template -h
@@ -171,9 +165,22 @@ tiny-template -h
 ```sh
 -v, --version               output the version number
 -c, --config [optional]     optional path to config file
+-f, --force [optional]      force writes a directory
 -e, --entry <required>      required array from config object
 -d, --directory <required>  required output directory
 -h, --help                  output usage information
+```
+
+### onComplete
+
+In instances where you'd like to do something after Tiny Template completes, add an `'onComplete'` key with an `'options'` argument to your config file. If Tiny Templates finds this after it's finished running, it'll call it.
+
+For example:
+
+```sh
+onComplete: options => {
+  console.log(options);
+}
 ```
 
 ### License

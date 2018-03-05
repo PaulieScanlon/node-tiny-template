@@ -20,7 +20,10 @@ const config = {
 			format: 'paramCase',
 			template: `${paths.templates}/components-css`
 		}
-	]
+	],
+	onComplete: options => {
+		console.log(options);
+	}
 };
 
 module.exports = config;
