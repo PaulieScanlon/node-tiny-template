@@ -176,6 +176,27 @@ tiny-template -h
 -h, --help                  output usage information
 ```
 
+### onComplete
+
+In instances where you'd like to do something after Tiny Template completes add an `'onComplete'` key to your config file. If Tiny Templates finds this after running it'll execute whatever you pass in.
+
+For example:
+
+```sh
+const config = {
+  ...
+  onComplete: 'npm run tiny-template-on-complete'
+};
+```
+
+This will run `'tiny-template-on-complete'` from `"scripts"` in `'package.json'`
+
+```sh
+"scripts": {
+  "tiny-template-on-complete": "node ./tiny-template-on-complete.js"
+}
+```
+
 ### License
 
 MIT

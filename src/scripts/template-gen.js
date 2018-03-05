@@ -11,7 +11,7 @@ const {
 	checkTemplates
 } = require('./error/error-checks');
 
-const { errors, success, tiny } = require('./echo/echo-styles');
+const { errors, success, onComplete, tiny } = require('./echo/echo-styles');
 
 const defaultConfig = 'tiny-template.config.js';
 
@@ -92,6 +92,16 @@ const templateGenerator = (program, err) => {
 	shell.echo('');
 	shell.echo(`${tiny.finished(' FINISHED ')} Tiny Template finished!`);
 	shell.echo('');
+
+	// 5. If onComplete is defined, execute it!
+	if (options.config.onComplete) {
+		shell.echo(
+			`${onComplete.bold('OnComplete:')} ${onComplete.highlight(
+				`"${options.config.onComplete}"`
+			)}`
+		);
+		shell.exec(options.config.onComplete);
+	}
 };
 
 module.exports = templateGenerator;

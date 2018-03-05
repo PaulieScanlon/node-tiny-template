@@ -20,7 +20,8 @@ const config = {
 			format: 'paramCase',
 			template: `${paths.templates}/components-css`
 		}
-	]
+	],
+	onComplete: 'npm run tiny-template-on-complete'
 };
 
 module.exports = config;
