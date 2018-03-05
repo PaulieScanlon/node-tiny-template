@@ -9,6 +9,7 @@ program
 	.version('2.0.0', '-v, --version')
 	.description('Tiny Template')
 	.option('-c, --config [optional]', 'optional path to config file')
+	.option('-f, --force [optional]', 'force writes a directory')
 	.option('-e, --entry <required>', 'required array from config object')
 	.option('-d, --directory <required>', 'required output directory')
 	.on('--help', () => {

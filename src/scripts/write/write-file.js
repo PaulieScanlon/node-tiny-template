@@ -24,7 +24,7 @@ const writeFile = options => {
 
 		fs.writeFileSync(
 			writeTemplate,
-			template({ name: `${changeCase[obj.format](obj.directory)}` })
+			template({ name: `${changeCase[obj.format](obj.name)}` })
 		);
 		results.push(`"${obj.name}${obj.extension}"`);
 	});
