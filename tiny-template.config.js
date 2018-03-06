@@ -6,15 +6,18 @@ const paths = {
 };
 
 const config = {
-	components: [
+	directory: {
+		format: 'paramCase',
+		output: './new-examples/tests'
+	},
+	files: [
 		{
-			output: paths.components,
+			inherit: true,
 			extension: '.js',
 			format: 'pascalCase',
 			template: `${paths.templates}/components-js`
 		},
 		{
-			output: paths.components,
 			name: 'styles',
 			extension: '.css',
 			format: 'paramCase',
