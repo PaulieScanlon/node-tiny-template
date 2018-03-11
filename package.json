@@ -4,7 +4,7 @@
 	"description": "A Node CLI for creating templates.",
 	"main": "src/index.js",
 	"scripts": {
-		"test": "jest --verbose"
+		"test": "jest --verbose --watch"
 	},
 	"bin": {
 		"tiny-template": "./src/index.js"

@@ -5,8 +5,7 @@ const changeCase = require('change-case');
 
 const { errors, success } = require('../echo/echo-styles');
 
-const writeFile = options => {
-	// console.log(options);
+const writeFile = (program, options) => {
 	let results = [];
 
 	let result = {
@@ -14,19 +13,26 @@ const writeFile = options => {
 		message: `${errors.bold('Error:')} something went wrong ¯_(ツ)_/¯`
 	};
 
-	options.config[options.entry].map((obj, i) => {
+	options.files.map((obj, i) => {
+		if (!obj.name) {
+			obj.name = `${changeCase[obj.format](program.directory)}`;
+		} else {
+			obj.name = `${changeCase[obj.format](obj.name)}`;
+		}
+
 		const source = shell.cat(`${obj.template}.hbs`).toString();
 		const template = handlebars.compile(source);
 
-		let writeTemplate = `${process.cwd()}/${obj.output}/${obj.directory}/${
-			obj.name
-		}${obj.extension}`;
+		let writeTemplate = `${process.cwd()}/${options.directory.output}/${
+			program.directory
+		}/${obj.name}${obj.extension}`;
 
 		fs.writeFileSync(
 			writeTemplate,
 			template({
-				name: `${changeCase[obj.format](obj.name)}`,
-				directory: `${changeCase[obj.format](obj.directory)}`
+				name: `${obj.name}`,
+				directory: `${changeCase[obj.format](program.directory)}`,
+				safeName: `${changeCase.pascalCase(obj.name)}`
 			})
 		);
 		results.push(`"${obj.name}${obj.extension}"`);

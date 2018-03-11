@@ -5,6 +5,8 @@ const shell = require('shelljs');
 const program = require('commander');
 const templateGenerator = require('./scripts/template-gen');
 
+const { success, tiny } = require('./scripts/echo/echo-styles');
+
 program
 	.version('2.0.0', '-v, --version')
 	.description('Tiny Template')
@@ -26,9 +28,24 @@ program
 	})
 	.parse(process.argv);
 
-templateGenerator(program, err => {
-	if (err) {
-		shell.echo(err);
-		process.exit();
+shell.echo('');
+shell.echo(`${tiny.starting(' STARTING ')} Tiny Template starting up!`);
+shell.echo('');
+
+templateGenerator(
+	program,
+	err => {
+		shell.echo('');
+		shell.echo(
+			`${tiny.error(' ERROR ')} Tiny Template finished ... but with errors!`
+		);
+		shell.echo('');
+		process.exit(1);
+	},
+	success => {
+		shell.echo('');
+		shell.echo(`${tiny.success(' FINISHED ')} Tiny Template finished ok!`);
+		shell.echo('');
+		process.exit(0);
 	}
-});
+);

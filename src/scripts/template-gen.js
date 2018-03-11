@@ -4,13 +4,16 @@ const writeDir = require('./write/write-dir');
 const writeFile = require('./write/write-file');
 
 const {
-	checkConfig,
+	checkConfigFile,
+	checkConfigObject,
 	checkRequiredArgs,
-	checkDirectory,
-	checkFiles
+	checkDirectoryObject,
+	checkFilesObject,
+	checkRequiredKeys,
+	checkTemplates
 } = require('./error/error-checks');
 
-const { errors, success, onComplete, tiny } = require('./echo/echo-styles');
+const { errors, onComplete, tiny } = require('./echo/echo-styles');
 
 const defaultConfig = 'tiny-template.config.js';
 
@@ -18,96 +21,89 @@ let options = {
 	config: null
 };
 
-const templateGenerator = (program, err) => {
-	shell.echo('');
-	shell.echo(`${tiny.starting(' STARTING ')} Tiny Template starting up!`);
-	shell.echo('');
-
+const templateGenerator = (program, err, success) => {
 	// Check existance of config files either custom -c arg or the default one
-	const config = checkConfig(program.config ? program.config : defaultConfig);
-	shell.echo(config.message);
-	if (!config.status) {
-		return err();
-	}
-
-	// Set config on the options object
-	options.config = config.object;
+	const configFile = checkConfigFile(
+		program.config !== undefined ? program.config : defaultConfig
+	);
+	shell.echo(configFile.message);
 
 	// Check all required args have been passed in
 	const requiredArgs = checkRequiredArgs(program);
 	shell.echo(requiredArgs.message);
 
-	// Check the directory key exists in the config file
-	const directoryFound = checkDirectory(options.config, program);
-	shell.echo(directoryFound.message);
+	// Check config object is in config file before assing it to options.config
+	const configObject = checkConfigObject(configFile);
+	shell.echo(configObject.message);
 
-	// Check the files key exists in the config file
-	const filesFound = checkFiles(options.config);
-	shell.echo(filesFound.message);
+	let directoryObjectFound = null;
+	let filesObjectFound = null;
+	let directoryRequiredKeys = null;
+	let filesRequiredKeys = null;
+	let templatesFound = null;
 
-	if (requiredArgs.status && filesFound.status && directoryFound.status) {
-		// 5. If onComplete is defined, execute it!
+	if (configObject.status) {
+		// Set assign config to options.config
+		options.config = configObject.config;
+
+		// Check the directory object exists in the config file
+		directoryObjectFound = checkDirectoryObject(options.config, program);
+		shell.echo(directoryObjectFound.message);
+
+		// Check the files array/object exists in the config file
+		filesObjectFound = checkFilesObject(options.config);
+		shell.echo(filesObjectFound.message);
+
+		// Check required keys // directory
+		if (directoryObjectFound.status) {
+			directoryRequiredKeys = checkRequiredKeys(options.config, 'directory');
+			shell.echo(directoryRequiredKeys.message);
+		}
+
+		// Check required keys // files
+		if (filesObjectFound.status) {
+			filesRequiredKeys = checkRequiredKeys(options.config, 'files');
+			filesRequiredKeys.status && shell.echo(filesRequiredKeys.message);
+
+			// Check templates
+			templatesFound = checkTemplates(options.config);
+			shell.echo(templatesFound.message);
+		}
+	}
+
+	if (
+		configFile.status &&
+		configObject.status &&
+		requiredArgs.status &&
+		directoryObjectFound.status &&
+		filesObjectFound.status &&
+		directoryRequiredKeys.status &&
+		filesRequiredKeys.status &&
+		templatesFound.status
+	) {
+		// Write the directory
+		const directoryWritten = writeDir(program, options.config);
+		shell.echo(directoryWritten.message);
+
+		// Write the files if the dir doesnt' already exist
+		if (directoryWritten.status) {
+			const fileWritten = writeFile(program, options.config);
+			shell.echo(fileWritten.message);
+		}
+
 		if (options.config.onComplete) {
-			shell.echo(`${onComplete.bold('OnComplete:')}`);
+			shell.echo(`${onComplete.bold('onComplete:')}`);
 			options.config.onComplete(options.config);
 		}
 
-		shell.echo('');
-		shell.echo(`${tiny.finished(' FINISHED ')} Tiny Template finished!`);
-		shell.echo('');
+		if (!directoryWritten.status) {
+			return err();
+		} else {
+			return success();
+		}
 	}
 
 	return err();
 };
 
 module.exports = templateGenerator;
-
-// // Check the passed in -e entry exists in the config file
-// const entryFound = checkEntry(config, program.entry);
-// shell.echo(entryFound.message);
-// if (!entryFound.status) {
-// 	return err();
-// }
-
-// // Set some stuff on the options object
-// options.config = config.object;
-// options.entry = program.entry;
-// options.directory = program.directory;
-// options.force = program.force ? program.force : false;
-
-// // If no name has been passed in from config file set it to the same as the -d directory
-// // and create a new options config objct
-// options.config[options.entry].map((obj, i) => {
-// 	obj['directory'] = options.directory;
-// 	if (!obj.name) {
-// 		obj['name'] = options.directory;
-// 	}
-// });
-
-// // check if all keys are present in config
-// let keys = checkKeys(options);
-// shell.echo(keys.message);
-// if (!keys.status) {
-// 	return err();
-// }
-
-// // 2. write the dir
-// let dir = writeDir(options);
-// shell.echo(dir.message);
-// if (!dir.status) {
-// 	return err();
-// }
-
-// // 3. check if the template files are there before attempting to write them
-// let templates = checkTemplates(options);
-// shell.echo(templates.message);
-// if (!templates.status) {
-// 	return err();
-// }
-
-// // 4. compile and write the files using the templates
-// let file = writeFile(options);
-// shell.echo(file.message);
-// if (!file.status) {
-// 	return err();
-// }

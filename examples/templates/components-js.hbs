@@ -1,12 +1,16 @@
 import * as React from 'react';
 
-const {{{name}}} = () => {
+import styles from './styles.css';
+
+const {{{safeName}}} = () => {
 
 	return (
-		<div>
-			<p>{{{name}}}</p>
+		<div className="{{{name}}}">
+			<p>name: {{{name}}}</p>
+			<p>directory: {{{directory}}}</p>
+			<p>safeName: {{{safeName}}}</p>
 		</div>
 	);
 };
 
-export default {{{name}}};
+export default {{{safeName}}};

@@ -1,20 +1,18 @@
 const path = require('path');
 
 const paths = {
-	components: './examples/components',
 	templates: './examples/templates'
 };
 
 const config = {
 	directory: {
 		format: 'paramCase',
-		output: './new-examples/tests'
+		output: './new-examples'
 	},
 	files: [
 		{
-			inherit: true,
 			extension: '.js',
-			format: 'pascalCase',
+			format: 'paramCase',
 			template: `${paths.templates}/components-js`
 		},
 		{
