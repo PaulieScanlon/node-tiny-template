@@ -14,13 +14,13 @@ const config = {
 			extension: '.js',
 			format: 'paramCase',
 			template: `${paths.templates}/components-js`
-		},
-		{
-			name: 'styles',
-			extension: '.css',
-			format: 'paramCase',
-			template: `${paths.templates}/components-css`
 		}
+		// {
+		// 	name: 'styles',
+		// 	extension: '.css',
+		// 	format: 'paramCase',
+		// 	template: `${paths.templates}/components-css`
+		// }
 	],
 	onComplete: options => {
 		console.log(options);

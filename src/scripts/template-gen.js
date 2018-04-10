@@ -28,7 +28,6 @@ const templateGenerator = (program, err, success) => {
 
 	// Check all the parts of the object exist
 	const objectLogic = checkObjectLogic(program, configFile);
-	console.log(objectLogic.status);
 	objectLogic.status ? null : err();
 };
 
