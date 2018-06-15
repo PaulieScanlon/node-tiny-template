@@ -1,5 +1,6 @@
 const path = require('path');
 const shell = require('shelljs');
+const flags = require('../../flags');
 
 const { errors, success } = require('../echo/echo-styles');
 
@@ -46,31 +47,28 @@ const checkConfigObject = configFile => {
 	return result;
 };
 
-const checkRequiredArgs = program => {
-	let requiredArgs = [];
+const checkRequiredArgs = rawArgs => {
 
-	let result = {
+	const result = {
 		status: false,
 		message: `${errors.bold('Error:')} Missing one or more ${errors.highlight(
 			'"<required>"'
 		)} args`
 	};
 
-	program.options.map((opts, i) => {
-		if (opts.flags.includes('<required>')) {
-			requiredArgs.push(opts.short);
+	const flagKeys = Object.keys(flags);
+	for (let i = 0; i < flagKeys.length; i++) {
+		const flag = flags[flagKeys[i]];
+		if (flag.validate) {
+			if (flag.validate(rawArgs)) {
+				return {
+					status: true,
+					message: `${success.bold('Success:')} all ${success.highlight(
+						'"<required>"'
+					)} args found ok!`
+				};
+			}
 		}
-	});
-
-	requiredArgs.map((rf, i) => {
-		argStatus = program.rawArgs.includes(rf);
-	});
-
-	if (argStatus) {
-		result.status = true;
-		result.message = `${success.bold('Success:')} all ${success.highlight(
-			'"<required>"'
-		)} args found ok!`;
 	}
 
 	return result;
