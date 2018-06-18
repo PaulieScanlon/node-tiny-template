@@ -4,27 +4,6 @@ const flags = require('../../flags');
 
 const { errors, success } = require('../echo/echo-styles');
 
-const checkConfigFile = config => {
-	let result = {
-		status: false,
-		message: `${errors.bold('Error:')} config ${errors.highlight(
-			`"${config}"`
-		)} not found`,
-		config: null,
-		fileName: config
-	};
-
-	if (shell.test('-e', config)) {
-		result.status = true;
-		result.message = `${success.bold('Success:')} file ${success.highlight(
-			`"${config}"`
-		)} ok!`;
-		result.config = require(path.resolve(process.cwd(), `${config}`));
-	}
-
-	return result;
-};
-
 const checkConfigObject = configFile => {
 	let result = {
 		status: false,
@@ -42,33 +21,6 @@ const checkConfigObject = configFile => {
 			'Success:'
 		)} object ${success.highlight('"config"')} found ok!`;
 		result.config = configFile.config;
-	}
-
-	return result;
-};
-
-const checkRequiredArgs = rawArgs => {
-
-	const result = {
-		status: false,
-		message: `${errors.bold('Error:')} Missing one or more ${errors.highlight(
-			'"<required>"'
-		)} args`
-	};
-
-	const flagKeys = Object.keys(flags);
-	for (let i = 0; i < flagKeys.length; i++) {
-		const flag = flags[flagKeys[i]];
-		if (flag.validate) {
-			if (flag.validate(rawArgs)) {
-				return {
-					status: true,
-					message: `${success.bold('Success:')} all ${success.highlight(
-						'"<required>"'
-					)} args found ok!`
-				};
-			}
-		}
 	}
 
 	return result;
@@ -181,9 +133,7 @@ const checkTemplates = options => {
 };
 
 module.exports = {
-	checkConfigFile,
 	checkConfigObject,
-	checkRequiredArgs,
 	checkDirectoryObject,
 	checkFilesObject,
 	checkRequiredKeys,

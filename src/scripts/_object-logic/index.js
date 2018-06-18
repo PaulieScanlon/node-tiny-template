@@ -6,7 +6,7 @@ const {
 	checkFilesObject,
 	checkRequiredKeys,
 	checkTemplates
-} = require('../error/error-checks');
+} = require('../object-logic/error-checks');
 
 let options = {
 	config: null
@@ -72,4 +72,6 @@ const checkObjectLogic = (program, configFile) => {
 	};
 };
 
-module.exports = checkObjectLogic;
+module.exports = {
+	checkObjectLogic
+};

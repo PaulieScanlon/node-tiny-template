@@ -12,7 +12,7 @@ const config = {
 	files: [
 		{
 			extension: '.js',
-			format: 'paramCase',
+			// format: 'pascalCase',
 			template: `${paths.templates}/components-js`
 		},
 		{
