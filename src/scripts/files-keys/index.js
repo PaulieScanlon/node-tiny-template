@@ -1,3 +1,4 @@
+const difference = require('lodash.difference');
 const { errors, success } = require('../echo/echo-styles');
 
 const requiredFilesKeys = ['extension', 'format', 'template'];
@@ -21,15 +22,17 @@ const checkFilesKeys = files => {
 		});
 	});
 
-	// console.log(required);
-
 	for (let i = 0; i < required.length; i++) {
-		// console.log(required[i]);
-		for (let k = 0; k < required[i].length; k++) {
-			console.log(required[i][k]);
-			// if (!requiredFilesKeys.includes(required[i][k])) {
-			// 	console.log(required[i][k], 'should error');
-			// }
+		const diff = difference(requiredFilesKeys, required[i]);
+		if (diff.length !== 0) {
+			return {
+				status: false,
+				message: `${errors.bold('Error:')} ${errors.highlight(
+					`"${diff[0]}"`
+				)} is missing from ${errors.highlight(
+					`"files"`
+				)} array position ${errors.highlight(`"${i}"`)}`
+			};
 		}
 	}
 
@@ -39,10 +42,3 @@ const checkFilesKeys = files => {
 module.exports = {
 	checkFilesKeys
 };
-
-// status: false,
-// message: `${errors.bold('Error:')} ${errors.highlight(
-//   `"${requiredFilesKeys[i]}"`
-// )} is missing from ${errors.highlight(
-//   `"files"`
-// )} array position ${errors.highlight(`"${i}"`)}`
