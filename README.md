@@ -54,6 +54,65 @@ A simple useage example would then look like this:
 npm run -- tiny-template -d "new-component"
 ```
 
+### Config continued...
+
+In order for Tiny Template to do it's thing the config file must contain the required objects and object keys. An example configuration could look like this.
+
+```sh
+const path = require('path');
+
+const paths = {
+	templates: 'examples/templates'
+};
+
+const config = {
+	directory: {
+		format: 'paramCase',
+		output: 'examples/components'
+	},
+	files: [
+		{
+			extension: 'js',
+			format: 'camelCase',
+			template: `${paths.templates}/components-js.hbs`
+		},
+		{
+			name: 'styles',
+			extension: 'css',
+			format: 'paramCase',
+			template: `${paths.templates}/components-css.hbs`
+		}
+	],
+	onComplete: options => {
+		console.log(options);
+	}
+};
+
+module.exports = config;
+```
+
+- `directory`: Object; `<required>`
+  </br>`format`: String; `<required>`
+  </br>`output`: String; `<required>`
+
+- `files`: Array; `<required>`
+  </br>`name`: String; `<optional>`
+  </br>`extension`: String; `<required>`
+  </br>`format`: String; `<required>`
+  </br>`template`: String; `<required>`
+
+- `onComplete`: Function; `<optional>`
+  Returns a number of case formatted variants of the name key for use with handlebars templates eg `{{{name}}}`
+  </br>**_options_**:
+  </br>dir
+  </br>name
+  </br>extension
+  </br>camelCase
+  </br>constantCase
+  </br>paramCase
+  </br>pascalCase
+  </br>snakeCase
+
 ### License
 
 MIT
