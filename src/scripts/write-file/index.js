@@ -22,9 +22,21 @@ const checkWriteFile = (directory, output, files) => {
 			template: handlebars.compile(
 				shell.cat(`${process.cwd()}/${object.template}`).toString()
 			),
-			safeName: object.name
+			camelCase: object.name
+				? `${changeCase.camelCase(object.name)}`
+				: `${changeCase.camelCase(directory)}`,
+			constantCase: object.name
+				? `${changeCase.constantCase(object.name)}`
+				: `${changeCase.constantCase(directory)}`,
+			paramCase: object.name
+				? `${changeCase.paramCase(object.name)}`
+				: `${changeCase.paramCase(directory)}`,
+			pascalCase: object.name
 				? `${changeCase.pascalCase(object.name)}`
-				: `${changeCase.pascalCase(directory)}`
+				: `${changeCase.pascalCase(directory)}`,
+			snakeCase: object.name
+				? `${changeCase.snakeCase(object.name)}`
+				: `${changeCase.snakeCase(directory)}`
 		};
 	});
 
@@ -33,9 +45,14 @@ const checkWriteFile = (directory, output, files) => {
 		fs.writeFileSync(
 			`${options[i].path}/${options[i].name}.${options[i].extension}`,
 			options[i].template({
-				name: options[i].name,
 				directory: options[i].dir,
-				safeName: options[i].safeName
+				name: options[i].name,
+				extension: options[i].extension,
+				camelCase: options[i].camelCase,
+				constantCase: options[i].constantCase,
+				paramCase: options[i].paramCase,
+				pascalCase: options[i].pascalCase,
+				snakeCase: options[i].snakeCase
 			})
 		);
 		results.push([`${options[i].name}.${options[i].extension}`]);
