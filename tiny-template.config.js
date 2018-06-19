@@ -1,25 +1,25 @@
 const path = require('path');
 
 const paths = {
-	templates: './examples/templates'
+	templates: 'examples/templates'
 };
 
 const config = {
 	directory: {
 		format: 'paramCase',
-		output: './new-examples'
+		output: 'examples/components'
 	},
 	files: [
 		{
-			extension: '.js',
-			format: 'pascalCase',
-			template: `${paths.templates}/components-js`
+			extension: 'js',
+			format: 'camelCase',
+			template: `${paths.templates}/components-js.hbs`
 		},
 		{
 			name: 'styles',
-			extension: '.css',
+			extension: 'css',
 			format: 'paramCase',
-			template: `${paths.templates}/components-css`
+			template: `${paths.templates}/components-css.hbs`
 		}
 	],
 	onComplete: options => {

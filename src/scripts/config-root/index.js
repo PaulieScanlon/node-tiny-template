@@ -1,4 +1,4 @@
-const { errors, success } = require('../echo/echo-styles');
+const { errors, success } = require('../../utils/echo');
 
 const checkConfigRoot = (configFile, object) => {
 	let result = {

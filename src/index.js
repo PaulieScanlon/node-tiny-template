@@ -4,16 +4,25 @@ const path = require('path');
 const shell = require('shelljs');
 const program = require('commander');
 const templateGenerator = require('./scripts/template-gen');
-const flags = require('./flags');
+const flags = require('./utils/flags/');
 
-const { success, tiny } = require('./scripts/echo/echo-styles');
+const { tiny, success } = require('./utils/echo');
 
 program
 	.version('2.0.0', '-v, --version')
 	.description('Tiny Template')
-	.option(`${flags.config.short}, ${flags.config.long}`, `${flags.config.description}`)
-	.option(`${flags.force.short}, ${flags.force.long}`, `${flags.force.description}`)
-	.option(`${flags.directory.short}, ${flags.directory.long}`, `${flags.directory.description}`)
+	.option(
+		`${flags.config.short}, ${flags.config.long}`,
+		`${flags.config.description}`
+	)
+	.option(
+		`${flags.force.short}, ${flags.force.long}`,
+		`${flags.force.description}`
+	)
+	.option(
+		`${flags.directory.short}, ${flags.directory.long}`,
+		`${flags.directory.description}`
+	)
 	.on('--help', () => {
 		shell.echo('');
 		shell.echo('  Examples:');

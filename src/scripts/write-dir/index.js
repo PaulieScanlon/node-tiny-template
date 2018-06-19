@@ -2,16 +2,16 @@ const path = require('path');
 const shell = require('shelljs');
 const changeCase = require('change-case');
 
-const { errors, success, warnings } = require('../echo/echo-styles');
+const { errors, success, warnings } = require('../../utils/echo');
 
-const writeDir = (program, options) => {
-	const formattedDirectory = `${changeCase[options.directory.format](
-		program.directory
+const checkWriteDir = (directory, force, configFile) => {
+	const formattedDirectory = `${changeCase[configFile.directory.format](
+		directory
 	)}`;
 
 	const writeLocation = path.join(
 		process.cwd(),
-		`${options.directory.output}/${formattedDirectory}`
+		`${configFile.directory.output}/${formattedDirectory}`
 	);
 
 	let result = {
@@ -21,7 +21,7 @@ const writeDir = (program, options) => {
 		)} directory already exists!`
 	};
 
-	if (program.force) {
+	if (force) {
 		shell.mkdir('-p', writeLocation);
 		result.status = true;
 		result.message = `${success.bold('Success:')} ${success.highlight(
@@ -29,7 +29,7 @@ const writeDir = (program, options) => {
 		)} directory created with ${warnings.underline('force')} ok!`;
 	}
 
-	if (!shell.test('-e', writeLocation) && !options.force) {
+	if (!shell.test('-e', writeLocation) && !force) {
 		shell.mkdir('-p', writeLocation);
 		result.status = true;
 		result.message = `${success.bold('Success:')} ${success.highlight(
@@ -40,4 +40,6 @@ const writeDir = (program, options) => {
 	return result;
 };
 
-module.exports = writeDir;
+module.exports = {
+	checkWriteDir
+};

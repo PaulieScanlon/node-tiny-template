@@ -1,5 +1,5 @@
 const difference = require('lodash.difference');
-const { errors, success } = require('../echo/echo-styles');
+const { errors, success } = require('../../utils/echo');
 
 const requiredFilesKeys = ['extension', 'format', 'template'];
 const opttionalFilesKeys = ['name'];

@@ -1,10 +1,12 @@
 const path = require('path');
 const shell = require('shelljs');
-const flags = require('../../flags');
+const flags = require('../../utils/flags/');
 
-const { errors, success } = require('../echo/echo-styles');
+const { errors, success } = require('../../utils/echo');
 
 const checkRequiredArgs = rawArgs => {
+	console.log(rawArgs);
+
 	const result = {
 		status: false,
 		message: `${errors.bold('Error:')} Missing one or more ${errors.highlight(

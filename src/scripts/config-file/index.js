@@ -1,8 +1,8 @@
 const path = require('path');
 const shell = require('shelljs');
-const flags = require('../../flags');
+const flags = require('../../utils/flags/');
 
-const { errors, success } = require('../echo/echo-styles');
+const { errors, success } = require('../../utils/echo');
 
 const checkConfigFile = config => {
 	let result = {
