@@ -92,26 +92,40 @@ module.exports = config;
 ```
 
 - `directory`: Object; `<required>`
-  </br>`format`: String; `<required>`
-  </br>`output`: String; `<required>`
+
+  - `format`: String; `<required>`
+  - `output`: String; `<required>`
 
 - `files`: Array; `<required>`
-  </br>`name`: String; `<optional>`
-  </br>`extension`: String; `<required>`
-  </br>`format`: String; `<required>`
-  </br>`template`: String; `<required>`
+
+  - `name`: String; `<optional>`
+  - `extension`: String; `<required>`
+  - `format`: String; `<required>`
+  - `template`: String; `<required>`
 
 - `onComplete`: Function; `<optional>`
-  Returns a number of case formatted variants of the name key for use with handlebars templates eg `{{{name}}}`
-  </br>**_options_**:
-  </br>dir
-  </br>name
-  </br>extension
-  </br>camelCase
-  </br>constantCase
-  </br>paramCase
-  </br>pascalCase
-  </br>snakeCase
+  Can be used to trigger something else you'd like to do after the files have been created. - options
+
+Options returns a number of case formatted variants of the name and dir keys. These same keys are available for use with your handlebars templates. Access them like this `{{{name.camelCase}}}` or `{{{directory.constandCase}}}`
+
+- directory
+
+  - unformatted
+  - camelCase
+  - constantCase
+  - paramCase
+  - pascalCase
+  - snakeCase
+  - noCase
+
+- name
+  - formatted
+  - camelCase
+  - constantCase
+  - paramCase
+  - pascalCase
+  - snakeCase
+  - noCase
 
 ### License
 

@@ -2,20 +2,29 @@ import * as React from 'react';
 
 import styles from './styles.css';
 
-const {{{safeName}}} = () => {
+const {{{name.pascalCase}}} = () => {
 
 	return (
-		<div className="{{{directory}}}">
-		<p>directory: {{{directory}}}</p>
-			<p>name: {{{name}}}</p>
+		<div className="{{{directory.paramCase}}}">
+
+			<p>directory.unformatted: {{{directory.unformatted}}}</p>
+			<p>directory.camelCase: {{{directory.camelCase}}}</p>
+			<p>directory.constantCase: {{{directory.constantCase}}}</p>
+			<p>directory.paramCase: {{{directory.paramCase}}}</p>
+			<p>directory.pascalCase: {{{directory.pascalCase}}}</p>
+			<p>directory.snakeCase: {{{directory.snakeCase}}}</p>
+
+			<p>name.formatted: {{{name.formatted}}}</p>
+			<p>name.camelCase: {{{name.camelCase}}}</p>
+			<p>name.constantCase: {{{name.constantCase}}}</p>
+			<p>name.paramCase: {{{name.paramCase}}}</p>
+			<p>name.pascalCase: {{{name.pascalCase}}}</p>
+			<p>name.snakeCase: {{{name.snakeCase}}}</p>
+
 			<p>extension: {{{extension}}}</p>
-			<p>camelCase: {{{camelCase}}}</p>
-			<p>constantCase: {{{constantCase}}}</p>
-			<p>paramCase: {{{paramCase}}}</p>
-			<p>pascalCase: {{{pascalCase}}}</p>
-			<p>snakeCase: {{{snakeCase}}}</p>
+
 		</div>
 	);
 };
 
-export default {{{safeName}}};
+export default {{{name.pascalCase}}};
