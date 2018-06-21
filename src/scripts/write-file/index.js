@@ -5,6 +5,11 @@ const changeCase = require('change-case');
 
 const { errors, success } = require('../../utils/echo');
 
+// TODO put this somehwere helpful
+handlebars.registerHelper('raw', function(options) {
+	return options.fn(this);
+});
+
 // TODO make this less gross!
 const returnCase = (name, format) => {
 	return changeCase[format](name);

@@ -104,9 +104,14 @@ module.exports = config;
   - `template`: String; `<required>`
 
 - `onComplete`: Function; `<optional>`
-  Can be used to trigger something else you'd like to do after the files have been created. - options
+  - options: Object;
 
-Options returns a number of case formatted variants of the name and dir keys. These same keys are available for use with your handlebars templates. Access them like this `{{{name.camelCase}}}` or `{{{directory.constandCase}}}`
+**_onComplete_**
+
+`onComplete` can be used to trigger something else you'd like to do after the files have been created.
+
+`options` returns a number of case formatted variants of the name and directory keys.
+These same keys are available for use with your handlebars templates. and you can access them like this `{{{name.camelCase}}}` or `{{{directory.constandCase}}}`
 
 - directory
 
@@ -126,6 +131,37 @@ Options returns a number of case formatted variants of the name and dir keys. Th
   - pascalCase
   - snakeCase
   - noCase
+
+### Handlebars.helper "raw"
+
+If you encounter any rendering problems when attempting to template something like the following...
+
+```
+		<SomeComponent
+			prop={some.prop}
+			propObject={{
+				propA: some.propA,
+				propB: some.propB
+			}}
+		/>
+```
+
+...where Handlebars will misinterpret the use of "double-stash" `{{` or "triple-stash" `{{{`
+You can wrap the entire template in the `{{{{raw}}}} ... {{{{/raw}}}}` helper.
+
+```
+{{{{raw}}}}
+		<SomeComponent
+			prop={some.prop}
+			propObject={{
+				propA: some.propA,
+				propB: some.propB
+			}}
+		/>
+{{{{/raw}}}}
+```
+
+#### ... Happy templating!
 
 ### License
 
