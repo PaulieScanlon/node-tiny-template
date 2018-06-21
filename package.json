@@ -1,6 +1,6 @@
 {
 	"name": "node-tiny-template",
-	"version": "3.0.5",
+	"version": "3.0.6",
 	"description": "A Node CLI for creating templates.",
 	"main": "src/index.js",
 	"scripts": {
