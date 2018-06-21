@@ -26,7 +26,7 @@ const checkWriteFile = (directory, output, files) => {
 
 	const options = files.map(object => {
 		return {
-			path: `${process.cwd()}/${output}/${directory}`,
+			path: `${output}/${directory}`,
 			directory: {
 				unformatted: directory,
 				camelCase: returnCase(directory, 'camelCase'),

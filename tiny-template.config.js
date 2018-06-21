@@ -1,13 +1,12 @@
-const path = require('path');
-
 const paths = {
-	templates: 'examples/templates'
+	output: './examples/components',
+	templates: './examples/templates'
 };
 
 const config = {
 	directory: {
 		format: 'paramCase',
-		output: 'examples/components'
+		output: `${paths.output}`
 	},
 	files: [
 		{
