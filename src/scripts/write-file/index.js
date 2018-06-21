@@ -12,6 +12,9 @@ handlebars.registerHelper('raw', function(options) {
 
 // TODO make this less gross!
 const returnCase = (name, format) => {
+	if (format === 'noFormat') {
+		return name;
+	}
 	return changeCase[format](name);
 };
 
@@ -36,8 +39,8 @@ const checkWriteFile = (directory, output, files) => {
 			name: {
 				unformatted: object.name ? object.name : directory,
 				formatted: object.name
-					? `${changeCase[object.format](object.name)}`
-					: `${changeCase[object.format](directory)}`,
+					? returnCase(object.name, object.format)
+					: returnCase(directory, object.format),
 				camelCase: object.name
 					? returnCase(object.name, 'camelCase')
 					: returnCase(directory, 'camelCase'),
@@ -55,7 +58,8 @@ const checkWriteFile = (directory, output, files) => {
 					: returnCase(directory, 'snakeCase'),
 				noCase: object.name
 					? returnCase(object.name, 'noCase')
-					: returnCase(directory, 'noCase')
+					: returnCase(directory, 'noCase'),
+				noFormat: object.name ? object.name : directory
 			},
 			extension: object.extension,
 			template: handlebars.compile(

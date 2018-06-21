@@ -93,14 +93,14 @@ module.exports = config;
 
 - `directory`: Object; `<required>`
 
-  - `format`: String; `<required>`
+  - `format`: String; `<required>` camelCase | constantCase | paramCase | pascalCase | snakeCase | noCase | noFormat
   - `output`: String; `<required>`
 
 - `files`: Array; `<required>`
 
   - `name`: String; `<optional>`
   - `extension`: String; `<required>`
-  - `format`: String; `<required>`
+  - `format`: String; `<required>` camelCase | constantCase | paramCase | pascalCase | snakeCase | noCase | noFormat
   - `template`: String; `<required>`
 
 - `onComplete`: Function; `<optional>`

@@ -21,6 +21,8 @@ const NewComponent = () => {
 			<p>name.paramCase: new-component</p>
 			<p>name.pascalCase: NewComponent</p>
 			<p>name.snakeCase: new_component</p>
+			<p>name.noCase: new component</p>
+			<p>name.noFormat: new-component</p>
 
 			<p>extension: js</p>
 
