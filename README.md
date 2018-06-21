@@ -124,6 +124,7 @@ These same keys are available for use with your handlebars templates. and you ca
   - noCase
 
 - name
+  - unformatted
   - formatted
   - camelCase
   - constantCase

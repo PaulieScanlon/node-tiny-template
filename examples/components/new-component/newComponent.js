@@ -14,6 +14,7 @@ const NewComponent = () => {
 			<p>directory.pascalCase: NewComponent</p>
 			<p>directory.snakeCase: new_component</p>
 
+			<p>name.unformatted: new-component</p>
 			<p>name.formatted: newComponent</p>
 			<p>name.camelCase: newComponent</p>
 			<p>name.constantCase: NEW_COMPONENT</p>

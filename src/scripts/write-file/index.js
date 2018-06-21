@@ -34,6 +34,7 @@ const checkWriteFile = (directory, output, files) => {
 				noCase: returnCase(directory, 'noCase')
 			},
 			name: {
+				unformatted: object.name ? object.name : directory,
 				formatted: object.name
 					? `${changeCase[object.format](object.name)}`
 					: `${changeCase[object.format](directory)}`,
@@ -73,7 +74,7 @@ const checkWriteFile = (directory, output, files) => {
 				extension: options[i].extension
 			})
 		);
-		results.push([`${options[i].name}.${options[i].extension}`]);
+		results.push([`${options[i].name.formatted}.${options[i].extension}`]);
 
 		if (i === options.length - 1) {
 			return {
