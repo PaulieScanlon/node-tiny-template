@@ -73,6 +73,7 @@ const checkWriteFile = (directory, output, files) => {
 		fs.writeFileSync(
 			`${options[i].path}/${options[i].name.formatted}.${options[i].extension}`,
 			options[i].template({
+				path: options[i].path,
 				directory: options[i].directory,
 				name: options[i].name,
 				extension: options[i].extension

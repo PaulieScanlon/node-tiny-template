@@ -3,9 +3,9 @@ import * as React from 'react';
 import styles from './styles.css';
 
 const NewComponent = () => {
-
 	return (
 		<div className="new-component">
+			<p>path: ./examples/components/new-component</p>
 
 			<p>directory.unformatted: new-component</p>
 			<p>directory.camelCase: newComponent</p>
@@ -25,7 +25,6 @@ const NewComponent = () => {
 			<p>name.noFormat: new-component</p>
 
 			<p>extension: js</p>
-
 		</div>
 	);
 };
