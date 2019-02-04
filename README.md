@@ -58,6 +58,8 @@ npm run -- tiny-template -d "new-component"
 
 In order for Tiny Template to do it's thing the config file must contain the required objects and object keys. An example configuration could look like this.
 
+Check `examples/templates` for example `.hbs` files. These are the templates that Tiny Template will use to create each defined file from the files array in config.
+
 ```sh
 const path = require('path');
 
